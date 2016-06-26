@@ -23,7 +23,7 @@ RuCaptcha Resolver is intended to be run on NodeJS 4.x or higher.
 
 const request = require('co-request').defaults({ encoding: null });
 const vo = require('vo');
-const RuCaptchaResolver = require('./index').RuCaptchaResolver;
+const RuCaptchaResolver = require('rucaptcha-resolver').RuCaptchaResolver;
 
 vo(function* () {
   const solver = new RuCaptchaResolver({ apiKey: 'YOUR_API_KEY' });
