@@ -31,6 +31,7 @@ vo(function* () {
   try {
     const response = yield request.get('https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg');
     const body = response.body;
+    // Image should be in base64 encoding
     const image = new Buffer(body).toString('base64');
 
     const result = yield* solver.resolve({ image });
