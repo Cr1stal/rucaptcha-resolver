@@ -11,7 +11,7 @@ class RuCaptchaResolver {
   }
 
   * resolve(options) {
-    const apiKey = this.apiKey || options.apiKey;
+    const apiKey = this.apiKey;
     const image = options.image;
 
     return yield* this.registerCaptcha(apiKey, image);
