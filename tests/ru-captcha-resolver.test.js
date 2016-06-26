@@ -49,7 +49,7 @@ test('get response immediately', function* (t) {
       request: captchaText,
     }));
 
-  t.is(yield new RuCaptchaResolver().resolve({ apiKey, image }), captchaText);
+  t.is(yield new RuCaptchaResolver({ apiKey }).resolve({ image }), captchaText);
 });
 
 test('get response after waiting', function* (t) {
@@ -97,7 +97,7 @@ test('get response after waiting', function* (t) {
       return JSON.stringify(response);
     });
 
-  t.is(yield new RuCaptchaResolver().resolve({ apiKey, image }), captchaText);
+  t.is(yield new RuCaptchaResolver({ apiKey }).resolve({ image }), captchaText);
 });
 
 test('never get response', function* (t) {
@@ -133,10 +133,38 @@ test('never get response', function* (t) {
     }));
 
   try {
-    yield new RuCaptchaResolver().resolve({ apiKey, image });
+    yield new RuCaptchaResolver({ apiKey }).resolve({ image });
     t.fail();
   } catch (e) {
     t.is(e.constructor, Error);
     t.regex(e.message, /can't be resolved/);
+  }
+});
+
+test('fail if key is wrong', function* (t) {
+  const apiKey = data.apiKey;
+  const image = data.image;
+  const requestId = '202';
+
+  nock('http://rucaptcha.com')
+    .post('/in.php', _.chain({
+      method: 'base64',
+      key: apiKey,
+      body: image,
+      json: true,
+    }).map((v, k) => `${k}=${v}`)
+      .join('&')
+      .value())
+    .reply(200, JSON.stringify({
+      status: 0,
+      request: 'ERROR_KEY_DOES_NOT_EXIST',
+    }));
+
+  try {
+    yield new RuCaptchaResolver({ apiKey }).resolve({ image });
+    t.fail();
+  } catch (e) {
+    t.is(e.constructor, Error);
+    t.regex(e.message, /key/i);
   }
 });

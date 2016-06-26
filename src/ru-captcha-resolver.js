@@ -6,8 +6,8 @@ const debug = require('debug')('ru-captcha-resolver');
 const sleep = require('co-sleep');
 
 class RuCaptchaResolver {
-  constructor(apiKey) {
-    this.apiKey = apiKey;
+  constructor(options) {
+    this.apiKey = options.apiKey;
   }
 
   * resolve(options) {
@@ -34,11 +34,10 @@ class RuCaptchaResolver {
       method: 'POST',
     });
 
-    const res = result;
     const body = result.body;
 
-    if (res.statusCode >= 400) {
-      debug(`Captcha service not available. Code ${res.statusCode}`);
+    if (result.statusCode >= 400) {
+      debug(`Captcha service not available. Code ${result.statusCode}`);
       throw new Error('Captcha service not available');
     }
 
@@ -46,10 +45,9 @@ class RuCaptchaResolver {
     if (response.status === 1) {
       const captchaId = response.request;
       return yield* this.getResult(apiKey, captchaId);
+    } else {
+      throw new Error(`Error from service: ${JSON.stringify(response)}`);
     }
-
-    yield sleep(5000);
-    return yield* this.registerCaptcha(apiKey, captchaInBase64);
   }
 
   * getResult(apiKey, captchaId) {
