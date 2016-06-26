@@ -6,12 +6,28 @@
   "scripts": {
     "test": "npm install && ava --serial"
   },
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Sergey Voronin",
+    "email": "voronin100@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/Cr1stal/rucaptcha-resolver/issues"
+  },
+  "homepage": "https://github.com/Cr1stal/rucaptcha-resolver",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Cr1stal/rucaptcha-resolver.git"
+  },
+  "keywords": [
+    "captcha",
+    "rucaptcha"
+  ],
   "dependencies": {
     "co-request": "^1.0.0",
     "co-sleep": "0.0.1",
     "debug": "^2.2.0",
+    "lodash": "^4.13.1",
     "urijs": "^1.18.1"
   },
   "devDependencies": {
