@@ -4,7 +4,7 @@
   "description": "This package provide simple API to RuCaptcha service",
   "main": "index.js",
   "scripts": {
-    "test": "ava --serial"
+    "test": "npm install && ava --serial"
   },
   "author": "",
   "license": "ISC",
