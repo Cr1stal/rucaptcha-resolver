@@ -15,3 +15,28 @@ RuCaptcha Resolver is a simple library for cracking captcha through [rucaptcha](
 ### Node versions
 
 RuCaptcha Resolver is intended to be run on NodeJS 4.x or higher.
+
+### API
+
+```js
+'use strict';
+
+const request = require('co-request').defaults({ encoding: null });
+const vo = require('vo');
+const RuCaptchaResolver = require('./index').RuCaptchaResolver;
+
+vo(function* () {
+  const solver = new RuCaptchaResolver({ apiKey: 'YOUR_API_KEY' });
+
+  try {
+    const response = yield request.get('https://upload.wikimedia.org/wikipedia/commons/6/69/Captcha.jpg');
+    const body = response.body;
+    const image = new Buffer(body).toString('base64');
+
+    const result = yield* solver.resolve({ image });
+    console.log(`Captcha Text: ${result}`);
+  } catch (e) {
+    console.log(e);
+  }
+})();
+```
