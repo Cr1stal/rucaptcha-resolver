@@ -2,6 +2,4 @@
 
 const RuCaptchaResolver = require('./src/ru-captcha-resolver');
 
-module.exports = {
-  RuCaptchaResolver,
-};
+module.exports = RuCaptchaResolver;
