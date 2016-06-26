@@ -1,6 +1,6 @@
 {
   "name": "rucaptcha-resolver",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This package provide simple API to RuCaptcha service",
   "main": "index.js",
   "scripts": {
