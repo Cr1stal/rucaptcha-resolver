@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/Cr1stal/rucaptcha-resolver.svg?style=svg)](https://circleci.com/gh/Cr1stal/rucaptcha-resolver)
 RuCaptcha Resolver
 =========
 
